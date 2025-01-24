@@ -1,0 +1,127 @@
+:root {
+  --primary-color: #ffd52e;
+  --padding-small: 1rem;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Inter", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  box-sizing: border-box;
+}
+
+.div {
+  border: 1px dotted green;
+}
+.plaeholding {
+  background-color: rgb(18, 16, 61);
+  height: 200vh;
+}
+
+.app {
+  display: flex;
+  max-width: 75rem;
+  margin: auto;
+}
+
+.notes {
+  width: 30rem;
+  padding: var(--padding-small);
+  border-right: 1px solid #00000044;
+  height: 100vh;
+}
+
+.all-notes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-small);
+  overflow-y: auto;
+  height: calc(100vh - 100px);
+}
+
+.preview-note {
+  border: 1px solid #00000044;
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--padding-small);
+}
+.preview-headline {
+  font-weight: bold;
+}
+
+.preview-content {
+  font-size: 0.7rem;
+}
+
+.preview-meta {
+  font-size: 0.5rem;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.button {
+  background-color: var(--primary-color);
+  border: none;
+  height: 4rem;
+}
+
+.btn-new {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-small);
+  margin-bottom: 1.5rem;
+}
+.btn-new svg {
+  max-height: 1rem;
+}
+
+.note {
+  width: 100%;
+  padding: var(--padding-small);
+}
+
+.note-title {
+  display: flex;
+  justify-content: end;
+  gap: var(--padding-small);
+}
+
+.note-title-input {
+  /* width: 100%; */
+  font-size: 1.7rem;
+  font-weight: bold;
+  border: none;
+}
+
+.btn-delete {
+  width: 4rem;
+  height: 4rem;
+}
+.btn-delete svg {
+  max-height: 1.7rem;
+}
+
+.btn-save {
+  width: 4rem;
+}
+
+.btn-save svg {
+  max-height: 1.7rem;
+}
+
+.note-content {
+  padding-top: 1.5rem;
+}
+
+.note-content-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
