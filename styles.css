@@ -1,5 +1,6 @@
 :root {
   --primary-color: #ffd52e;
+  --secondary-color: #e5e5e5;
   --padding-small: 1rem;
 }
 
@@ -28,7 +29,7 @@
 }
 
 .notes {
-  width: 30rem;
+  width: 22rem;
   padding: var(--padding-small);
   border-right: 1px solid #00000044;
   height: 100vh;
@@ -44,11 +45,16 @@
 
 .preview-note {
   border: 1px solid #00000044;
-  height: 5rem;
+  height: 7rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: var(--padding-small);
+  flex-shrink: 0;
+}
+
+.preview-note:hover {
+  background-color: var(--secondary-color);
 }
 .preview-headline {
   font-weight: bold;
@@ -56,6 +62,9 @@
 
 .preview-content {
   font-size: 0.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .preview-meta {
@@ -83,7 +92,7 @@
 }
 
 .note {
-  width: 100%;
+  flex-grow: 1;
   padding: var(--padding-small);
 }
 
@@ -94,10 +103,10 @@
 }
 
 .note-title-input {
-  /* width: 100%; */
   font-size: 1.7rem;
   font-weight: bold;
   border: none;
+  flex-grow: 1;
 }
 
 .btn-delete {

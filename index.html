@@ -9,6 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
+    <script src="./script.js"></script>
     <link rel="stylesheet" href="styles.css" />
     <title>Note.App</title>
     <!-- https://www.schemecolor.com/apple-notes-color-scheme.php
@@ -19,7 +20,7 @@
   <body>
     <div class="app">
       <div class="notes">
-        <button class="button btn-new">
+        <button class="button btn-new" onclick="loadStoredNotes()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -36,82 +37,7 @@
           </svg>
           Neue Notiz erstellen
         </button>
-        <div class="all-notes">
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
-          <div class="preview-note">
-            <h3 class="preview-headline">Testnotiz 2</h3>
-            <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
-            <p class="preview-meta">23.01.2024 15:30:29</p>
-          </div>
+        <div class="all-notes" id="notes-preview-container">
           <div class="preview-note">
             <h3 class="preview-headline">Testnotiz 2</h3>
             <p class="preview-content">ich darf nicht vergessen, dass ich...</p>
