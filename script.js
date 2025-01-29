@@ -1,31 +1,17 @@
-const notes = [
-  {
-    id: 1,
-    title: "Testnotiz 1",
-    content: "ich darf nicht vergessen, leckeren Tee einkaufen zu gehen",
-    lastUpdated: "1735744224000",
-  },
-  {
-    id: 2,
-    title: "Testnotiz 2",
-    content: "Wäsche waschen - erst Weißwäsche und ggf. noch die Bunte",
-    lastUpdated: "1735833600000",
-  },
-  {
-    id: 3,
-    title: "Testnotiz 3",
-    content: "Einkaufen: Milch, Eier, Sahne, Mehl, Bier, Bier, Bier",
-    lastUpdated: "1735826400000",
-  },
-];
-
 addEventListener("DOMContentLoaded", loadStoredNotes);
 
 function loadStoredNotes() {
+  loadFromLocalStorage();
   sortNotes();
+  updateNotesList();
+}
 
+function updateNotesList() {
+  const notesListElement = document.getElementById("notes-preview-container");
+  notesListElement.innerHTML = "";
   notes.forEach((loadNote) => {
     const note = document.createElement("div");
+    note.setAttribute("id", loadNote.id);
     note.classList.add("preview-note");
 
     const headline = document.createElement("h3");
@@ -49,7 +35,6 @@ function loadStoredNotes() {
     note.appendChild(headline);
     note.appendChild(content);
     note.appendChild(meta);
-    console.log(note);
     const allNotes = document.getElementById("notes-preview-container");
     allNotes.appendChild(note);
   });

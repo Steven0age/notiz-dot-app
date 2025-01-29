@@ -10,6 +10,7 @@
       rel="stylesheet"
     />
     <script src="./script.js"></script>
+    <script src="./notesAPI.js"></script>
     <link rel="stylesheet" href="styles.css" />
     <title>Note.App</title>
     <!-- https://www.schemecolor.com/apple-notes-color-scheme.php
@@ -19,7 +20,7 @@
   </head>
   <body>
     <div class="app">
-      <div class="notes">
+      <div class="notes-sidebar">
         <button class="button btn-new" onclick="loadStoredNotes()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,14 +46,15 @@
           </div>
         </div>
       </div>
-      <div class="note">
+      <div class="current-note">
         <div class="note-title">
           <input
             type="text"
+            id="note-title-input"
             class="note-title-input"
             placeholder="Überschrift eingeben..."
           />
-          <button class="button btn-save">
+          <button onclick="saveNote()" , class="button btn-save">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -87,6 +89,7 @@
         </div>
         <div class="note-content">
           <textarea
+            id="note-content-input"
             class="note-content-input"
             placeholder="Fang an eine Notiz zu erstellen"
           ></textarea>
