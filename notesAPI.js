@@ -1,3 +1,4 @@
+let notes = "";
 // const notes = [
 //   {
 //     id: 1,
@@ -29,28 +30,51 @@ function saveNote() {
   const currentInputTitle = document.getElementById("note-title-input").value;
   const currentInputContent =
     document.getElementById("note-content-input").value;
-  if (currentInputTitle == "" || currentInputContent == "") {
+  if (!currentInputTitle || !currentInputContent) {
     alert("Gib bitte eine Überschrift und eine Notiz ein");
-  } else {
-    const noteObj = {
-      id: nextFreeId(),
-      title: currentInputTitle,
-      content: currentInputContent,
-      lastUpdated: Date.now(),
-    };
-    notes.push(noteObj);
-    saveToLocalStorage();
-    loadStoredNotes();
+    return;
   }
+  const noteObj = {
+    id: nextFreeId(),
+    title: currentInputTitle,
+    content: currentInputContent,
+    lastUpdated: Date.now(),
+  };
+  notes.push(noteObj);
+  saveToLocalStorage();
+  loadStoredNotes();
 }
 
 function nextFreeId() {
   let filteredId = notes.map((a) => {
     return a.id;
   });
-  let maxId = Math.max(...filteredId);
-  maxId += 1;
-  return maxId;
+  // let maxId = Math.max(...filteredId);
+  // maxId += 1;
+
+  var lowest = -1;
+
+  console.log("filteredId = ", filteredId);
+  if (filteredId.length === 0) {
+    filteredId = [0];
+    console.log("if 1 hat gefeuert");
+  }
+  console.log("filteredId = ", filteredId);
+
+  for (i = 0; i < filteredId.length; ++i) {
+    if (filteredId[i] != i) {
+      lowest = i;
+      console.log("if 2 hat gefeuert");
+      break;
+    }
+  }
+
+  if (lowest == -1) {
+    lowest = filteredId[filteredId.length - 1] + 1;
+    console.log("if 3 hat gefeuert");
+  }
+  console.log("lowest =", lowest);
+  return lowest;
 }
 
 function saveToLocalStorage() {

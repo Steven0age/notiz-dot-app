@@ -53,6 +53,9 @@ function convertDateTime(input) {
 }
 
 function sortNotes() {
+  if (!notes) {
+    notes = [];
+  }
   notes.sort((a, b) => {
     return b.lastUpdated - a.lastUpdated;
   });
