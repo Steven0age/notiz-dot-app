@@ -26,7 +26,7 @@ let notes = "";
 // add array to local storrage
 
 function saveNote() {
-  const nextId = Math.max(notes.id);
+  const nextId = nextFreeID();
   const currentInputTitle = document.getElementById("note-title-input").value;
   const currentInputContent =
     document.getElementById("note-content-input").value;
@@ -35,7 +35,7 @@ function saveNote() {
     return;
   }
   const noteObj = {
-    id: nextFreeId(),
+    id: nextId,
     title: currentInputTitle,
     content: currentInputContent,
     lastUpdated: Date.now(),
@@ -45,36 +45,32 @@ function saveNote() {
   loadStoredNotes();
 }
 
-function nextFreeId() {
-  let filteredId = notes.map((a) => {
-    return a.id;
-  });
-  // let maxId = Math.max(...filteredId);
-  // maxId += 1;
+function nextFreeID() {
+  let lowestFreeID = -1;
 
-  var lowest = -1;
+  const existingIDs = notes.map((note) => note.id);
 
-  console.log("filteredId = ", filteredId);
-  if (filteredId.length === 0) {
-    filteredId = [0];
-    console.log("if 1 hat gefeuert");
+  if (existingIDs.length === 0) {
+    lowestFreeID = 1;
+    return lowestFreeID;
   }
-  console.log("filteredId = ", filteredId);
 
-  for (i = 0; i < filteredId.length; ++i) {
-    if (filteredId[i] != i) {
-      lowest = i;
-      console.log("if 2 hat gefeuert");
+  existingIDs.sort((a, b) => {
+    return a - b;
+  });
+
+  for (i = 0; i < existingIDs.length; ++i) {
+    if (existingIDs[i] != i + 1) {
+      lowestFreeID = i + 1;
       break;
     }
   }
 
-  if (lowest == -1) {
-    lowest = filteredId[filteredId.length - 1] + 1;
-    console.log("if 3 hat gefeuert");
+  if (lowestFreeID == -1) {
+    lowestFreeID = existingIDs[existingIDs.length - 1] + 1;
   }
-  console.log("lowest =", lowest);
-  return lowest;
+
+  return lowestFreeID;
 }
 
 function saveToLocalStorage() {
