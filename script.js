@@ -13,6 +13,7 @@ function updateNotesList() {
     const note = document.createElement("div");
     note.setAttribute("id", loadNote.id);
     note.classList.add("preview-note");
+    note.setAttribute("onclick", `loadNoteToEdit(${loadNote.id})`);
 
     const headline = document.createElement("h3");
     headline.classList.add("preview-headline");

@@ -1,4 +1,7 @@
-let notes = "";
+let notes;
+let currentLoadedID = "";
+console.log("🌍 Vor Funktionsaufruf: currentLoadedID =", currentLoadedID);
+
 // const notes = [
 //   {
 //     id: 1,
@@ -21,56 +24,100 @@ let notes = "";
 // ];
 // let notes = "";
 
-// Add get data from current note - DONE
-// Add info to Array - DONE
-// add array to local storrage
-
 function saveNote() {
-  const nextId = nextFreeID();
   const currentInputTitle = document.getElementById("note-title-input").value;
   const currentInputContent =
     document.getElementById("note-content-input").value;
+
   if (!currentInputTitle || !currentInputContent) {
     alert("Gib bitte eine Überschrift und eine Notiz ein");
     return;
   }
-  const noteObj = {
-    id: nextId,
-    title: currentInputTitle,
-    content: currentInputContent,
-    lastUpdated: Date.now(),
-  };
-  notes.push(noteObj);
+
+  let noteObj;
+
+  if (!currentLoadedID) {
+    noteObj = {
+      id: nextFreeID(),
+      title: currentInputTitle,
+      content: currentInputContent,
+      lastUpdated: Date.now(),
+    };
+
+    notes.push(noteObj);
+  } else {
+    var arrayIndex;
+    notes.forEach((value, index) => {
+      if (notes[index].id == currentLoadedID) {
+        arrayIndex = index;
+      }
+    });
+
+    noteObj = {
+      id: currentLoadedID,
+      title: currentInputTitle,
+      content: currentInputContent,
+      lastUpdated: Date.now(),
+    };
+
+    notes.splice(arrayIndex, 1, noteObj);
+  }
+
   saveToLocalStorage();
   loadStoredNotes();
+  currentLoadedID = "";
 }
 
+function loadNoteToEdit(id) {
+  currentLoadedID = id;
+
+  console.log("currentLoadedID hat jetzt den Wert", currentLoadedID);
+
+  let loadingTitle = document.getElementById("note-title-input");
+
+  let loadingContent = document.getElementById("note-content-input");
+
+  let loadNeededNote = notes.filter((array) => {
+    return array.id === currentLoadedID;
+  });
+
+  loadingTitle.value = loadNeededNote[0].title;
+  loadingContent.value = loadNeededNote[0].content;
+
+  console.log(
+    "currentLoadedID hat am Ende der Funktion den Wert",
+    currentLoadedID
+  );
+}
+
+// gib eine if Bedingung dazu, die entweder
+// A) wenn keine ID gegeben, eine neue Notiz anlegt, oder
+// B) wenn ID angegeben, die Notiz mit bestehender/ausgewählter ID findet und überschreibt.
+
 function nextFreeID() {
-  let lowestFreeID = -1;
+  let lowestUnusedNumber = -1;
 
   const existingIDs = notes.map((note) => note.id);
 
   if (existingIDs.length === 0) {
-    lowestFreeID = 1;
-    return lowestFreeID;
+    lowestUnusedNumber = 1;
+    return lowestUnusedNumber;
   }
 
-  existingIDs.sort((a, b) => {
-    return a - b;
-  });
+  existingIDs.sort((a, b) => a - b);
 
-  for (i = 0; i < existingIDs.length; ++i) {
+  for (let i = 0; i < existingIDs.length; ++i) {
     if (existingIDs[i] != i + 1) {
-      lowestFreeID = i + 1;
+      lowestUnusedNumber = i + 1;
       break;
     }
   }
 
-  if (lowestFreeID == -1) {
-    lowestFreeID = existingIDs[existingIDs.length - 1] + 1;
+  if (lowestUnusedNumber == -1) {
+    lowestUnusedNumber = existingIDs[existingIDs.length - 1] + 1;
   }
 
-  return lowestFreeID;
+  return lowestUnusedNumber;
 }
 
 function saveToLocalStorage() {
