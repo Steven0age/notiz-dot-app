@@ -1,7 +1,5 @@
-let notes;
-let currentLoadedID = "";
-console.log("🌍 Vor Funktionsaufruf: currentLoadedID =", currentLoadedID);
-
+let notes = null;
+let currentLoadedID = null;
 // const notes = [
 //   {
 //     id: 1,
@@ -70,8 +68,19 @@ function saveNote() {
 
 function loadNoteToEdit(id) {
   currentLoadedID = id;
+  let currentID = notes.findIndex((index) => index.id == currentLoadedID);
+  console.log("currentLoadedID =", currentLoadedID);
+  console.log("currentID =", currentID);
 
-  console.log("currentLoadedID hat jetzt den Wert", currentLoadedID);
+  let removeSelectedClass = document.querySelectorAll(".preview-note");
+  removeSelectedClass.forEach((note) => {
+    note.classList.remove("note-selected");
+  });
+
+  let changeClass = document.getElementById(id);
+  changeClass.classList.add("note-selected");
+
+  // console.log("currentLoadedID hat jetzt den Wert", currentLoadedID);
 
   let loadingTitle = document.getElementById("note-title-input");
 
@@ -83,16 +92,7 @@ function loadNoteToEdit(id) {
 
   loadingTitle.value = loadNeededNote[0].title;
   loadingContent.value = loadNeededNote[0].content;
-
-  console.log(
-    "currentLoadedID hat am Ende der Funktion den Wert",
-    currentLoadedID
-  );
 }
-
-// gib eine if Bedingung dazu, die entweder
-// A) wenn keine ID gegeben, eine neue Notiz anlegt, oder
-// B) wenn ID angegeben, die Notiz mit bestehender/ausgewählter ID findet und überschreibt.
 
 function nextFreeID() {
   let lowestUnusedNumber = -1;
@@ -129,4 +129,71 @@ function loadFromLocalStorage() {
   const loadNotes = localStorage.getItem("savedNotes");
   var unJSONNotes = JSON.parse(loadNotes);
   notes = unJSONNotes;
+}
+
+let newNoteBtnEl = document.querySelector("#new-note");
+newNoteBtnEl.addEventListener("click", newNote);
+
+function newNote() {
+  let inputTitleEl = document.getElementById("note-title-input");
+  let inputContentEl = document.getElementById("note-content-input");
+
+  inputTitleEl.value = "";
+  inputContentEl.value = "";
+  currentLoadedID = "";
+
+  let removeSelectedClass = document.querySelectorAll(".preview-note");
+  removeSelectedClass.forEach((note) => {
+    note.classList.remove("note-selected");
+  });
+}
+
+let deleteBtnEl = document
+  .querySelector(".btn-delete")
+  .addEventListener("click", deleteNote);
+
+function deleteNote() {
+  console.log("notes am Anfang von deleteNote =", notes);
+  // console.log("notes BEFORE reload form localStorage =", notes);
+
+  // const loadNotes = localStorage.getItem("savedNotes");
+  // var unJSONNotes = JSON.parse(loadNotes);
+  // notes = unJSONNotes;
+
+  // console.log("notes AFTER reload form localStorage =", notes);
+
+  let deleteIndex = -1;
+  deleteIndex = notes.findIndex((index) => index.id == currentLoadedID);
+
+  console.log("notes ; before if =", notes);
+  console.log("currentLoadedID ; before if =", currentLoadedID);
+  console.log("deleteIndex, before if =", deleteIndex);
+
+  if (!currentLoadedID || deleteIndex < 0) return;
+
+  console.log("currentLoadedID ; after if=", currentLoadedID);
+  console.log("notes before pop ; after id=", notes);
+  console.log("deleteIndex ; after if =", deleteIndex);
+
+  console.log("zu löschende Notiz=", notes[deleteIndex]);
+  // console.log("pop notes =", notes.pop(Number(deleteIndex)));
+  // notes.pop(Number(deleteIndex));
+
+  console.log("notes ; after pop =", notes);
+
+  deleteIndex = -1;
+
+  console.log("deleteIndex ; after reset=", deleteIndex);
+  // console.log("notes after pop =", notes);
+  // console.log("deleteIndex =", deleteIndex);
+  // console.log("currentLoadedID =", currentLoadedID);
+
+  saveToLocalStorage();
+  loadStoredNotes();
+  newNote();
+
+  // find loaded note
+  // pop it
+  // loadStoredNotes erneut ausführen
+  // if (keine note geladen) return
 }

@@ -9,8 +9,6 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-    <script src="./script.js"></script>
-    <script src="./notesAPI.js"></script>
     <link rel="stylesheet" href="styles.css" />
     <title>Note.App</title>
     <!-- https://www.schemecolor.com/apple-notes-color-scheme.php
@@ -21,7 +19,7 @@
   <body>
     <div class="app">
       <div class="notes-sidebar">
-        <button class="button btn-new" onclick="loadStoredNotes()">
+        <button class="button btn-new" id="new-note">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -96,6 +94,8 @@
         </div>
       </div>
     </div>
-    <!-- <div class="plaeholding"></div> -->
+    <!-- <div class="placeholding"></div> -->
   </body>
+  <script src="./script.js"></script>
+  <script src="./notesAPI.js"></script>
 </html>

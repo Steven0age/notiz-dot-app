@@ -2,7 +2,7 @@
   --primary-color: #ffd52e;
   --secondary-color: #e5e5e5;
   --padding-small: 1rem;
-  background-color: rgb(72, 60, 60);
+  /* background-color: rgb(72, 60, 60); */
 }
 
 * {
@@ -17,10 +17,6 @@
 
 .div {
   border: 1px dotted green;
-}
-.plaeholding {
-  background-color: rgb(18, 16, 61);
-  height: 200vh;
 }
 
 .app {
@@ -52,6 +48,10 @@
   justify-content: space-between;
   padding: var(--padding-small);
   flex-shrink: 0;
+}
+
+.note-selected {
+  background-color: var(--secondary-color);
 }
 
 .preview-note:hover {
