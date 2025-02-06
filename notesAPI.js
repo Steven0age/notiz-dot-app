@@ -43,6 +43,7 @@ function saveNote() {
     };
 
     notes.push(noteObj);
+    currentLoadedID = noteObj.id;
   } else {
     var arrayIndex;
     notes.forEach((value, index) => {
@@ -63,7 +64,7 @@ function saveNote() {
 
   saveToLocalStorage();
   loadStoredNotes();
-  currentLoadedID = "";
+  loadNoteToEdit(currentLoadedID);
 }
 
 function loadNoteToEdit(id) {
@@ -153,37 +154,37 @@ let deleteBtnEl = document
   .addEventListener("click", deleteNote);
 
 function deleteNote() {
-  console.log("notes am Anfang von deleteNote =", notes);
-  // console.log("notes BEFORE reload form localStorage =", notes);
+  // console.log("notes am Anfang von deleteNote =", notes);
+  // // console.log("notes BEFORE reload form localStorage =", notes);
 
-  // const loadNotes = localStorage.getItem("savedNotes");
-  // var unJSONNotes = JSON.parse(loadNotes);
-  // notes = unJSONNotes;
+  // // const loadNotes = localStorage.getItem("savedNotes");
+  // // var unJSONNotes = JSON.parse(loadNotes);
+  // // notes = unJSONNotes;
 
-  // console.log("notes AFTER reload form localStorage =", notes);
+  // // console.log("notes AFTER reload form localStorage =", notes);
 
   let deleteIndex = -1;
   deleteIndex = notes.findIndex((index) => index.id == currentLoadedID);
 
-  console.log("notes ; before if =", notes);
-  console.log("currentLoadedID ; before if =", currentLoadedID);
-  console.log("deleteIndex, before if =", deleteIndex);
+  // console.log("notes ; before if =", notes);
+  // console.log("currentLoadedID ; before if =", currentLoadedID);
+  // console.log("deleteIndex, before if =", deleteIndex);
 
   if (!currentLoadedID || deleteIndex < 0) return;
 
-  console.log("currentLoadedID ; after if=", currentLoadedID);
-  console.log("notes before pop ; after id=", notes);
-  console.log("deleteIndex ; after if =", deleteIndex);
+  // console.log("currentLoadedID ; after if=", currentLoadedID);
+  // console.log("notes before pop ; after id=", notes);
+  // console.log("deleteIndex ; after if =", deleteIndex);
 
-  console.log("zu löschende Notiz=", notes[deleteIndex]);
-  // console.log("pop notes =", notes.pop(Number(deleteIndex)));
-  // notes.pop(Number(deleteIndex));
+  // console.log("zu löschende Notiz=", notes[deleteIndex]);
+  // // console.log("pop notes =", notes.pop(Number(deleteIndex)));
+  notes.splice(deleteIndex, 1);
 
-  console.log("notes ; after pop =", notes);
+  // console.log("notes ; after pop =", notes);
 
   deleteIndex = -1;
 
-  console.log("deleteIndex ; after reset=", deleteIndex);
+  // console.log("deleteIndex ; after reset=", deleteIndex);
   // console.log("notes after pop =", notes);
   // console.log("deleteIndex =", deleteIndex);
   // console.log("currentLoadedID =", currentLoadedID);
