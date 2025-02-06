@@ -37,8 +37,8 @@ function saveNote() {
   if (!currentLoadedID) {
     noteObj = {
       id: nextFreeID(),
-      title: currentInputTitle,
-      content: currentInputContent,
+      title: String(currentInputTitle),
+      content: String(currentInputContent),
       lastUpdated: Date.now(),
     };
 
@@ -54,8 +54,8 @@ function saveNote() {
 
     noteObj = {
       id: currentLoadedID,
-      title: currentInputTitle,
-      content: currentInputContent,
+      title: String(currentInputTitle),
+      content: String(currentInputContent),
       lastUpdated: Date.now(),
     };
 
