@@ -2,7 +2,6 @@
   --primary-color: #ffd52e;
   --secondary-color: #e5e5e5;
   --padding-small: 1rem;
-  /* background-color: rgb(72, 60, 60); */
 }
 
 * {
@@ -13,10 +12,6 @@
   font-weight: 400;
   font-style: normal;
   box-sizing: border-box;
-}
-
-.div {
-  border: 1px dotted green;
 }
 
 .app {

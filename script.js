@@ -1,4 +1,12 @@
-addEventListener("DOMContentLoaded", loadStoredNotes);
+let notes = null;
+let currentLoadedID = null;
+
+let notesListEl = document.getElementById("notes-preview-container");
+let currentInputTitleEl = document.getElementById("note-title-input");
+let currentInputContentEl = document.getElementById("note-content-input");
+let previewNotesEl = document.querySelectorAll(".preview-note");
+let newNoteBtnEl = document.querySelector("#new-note");
+let deleteBtnEl = document.querySelector(".btn-delete");
 
 function loadStoredNotes() {
   loadFromLocalStorage();
@@ -7,8 +15,7 @@ function loadStoredNotes() {
 }
 
 function updateNotesList() {
-  const notesListElement = document.getElementById("notes-preview-container");
-  notesListElement.innerHTML = "";
+  notesListEl.innerHTML = "";
   notes.forEach((loadNote) => {
     const note = document.createElement("div");
     note.setAttribute("id", loadNote.id);
@@ -60,4 +67,30 @@ function sortNotes() {
   notes.sort((a, b) => {
     return b.lastUpdated - a.lastUpdated;
   });
+}
+
+function nextFreeID() {
+  let lowestUnusedNumber = -1;
+
+  const existingIDs = notes.map((note) => note.id);
+
+  if (existingIDs.length === 0) {
+    lowestUnusedNumber = 1;
+    return lowestUnusedNumber;
+  }
+
+  existingIDs.sort((a, b) => a - b);
+
+  for (let i = 0; i < existingIDs.length; ++i) {
+    if (existingIDs[i] != i + 1) {
+      lowestUnusedNumber = i + 1;
+      break;
+    }
+  }
+
+  if (lowestUnusedNumber == -1) {
+    lowestUnusedNumber = existingIDs[existingIDs.length - 1] + 1;
+  }
+
+  return lowestUnusedNumber;
 }
