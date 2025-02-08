@@ -1,7 +1,3 @@
-addEventListener("DOMContentLoaded", loadStoredNotes);
-deleteBtnEl.addEventListener("click", deleteNote);
-newNoteBtnEl.addEventListener("click", newNote);
-
 function saveToLocalStorage() {
   const JSONNotes = JSON.stringify(notes);
   localStorage.setItem("savedNotes", JSONNotes);
@@ -96,4 +92,42 @@ function deleteNote() {
   saveToLocalStorage();
   loadStoredNotes();
   newNote();
+}
+
+function convertDateTime(input) {
+  const dateTime = new Date(input);
+  return dateTime.toLocaleString("de-DE", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+}
+
+function nextFreeID() {
+  let lowestUnusedNumber = -1;
+
+  const existingIDs = notes.map((note) => note.id);
+
+  if (existingIDs.length === 0) {
+    lowestUnusedNumber = 1;
+    return lowestUnusedNumber;
+  }
+
+  existingIDs.sort((a, b) => a - b);
+
+  for (let i = 0; i < existingIDs.length; ++i) {
+    if (existingIDs[i] != i + 1) {
+      lowestUnusedNumber = i + 1;
+      break;
+    }
+  }
+
+  if (lowestUnusedNumber == -1) {
+    lowestUnusedNumber = existingIDs[existingIDs.length - 1] + 1;
+  }
+
+  return lowestUnusedNumber;
 }
