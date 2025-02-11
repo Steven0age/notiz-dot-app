@@ -7,10 +7,12 @@ let currentInputContentEl = document.getElementById("note-content-input");
 let previewNotesEl = document.querySelectorAll(".preview-note");
 let newNoteBtnEl = document.querySelector("#new-note");
 let deleteBtnEl = document.querySelector(".btn-delete");
+let saveBtnEl = document.querySelector(".btn-save");
 
 addEventListener("DOMContentLoaded", loadStoredNotes);
-deleteBtnEl.addEventListener("click", deleteNote);
+deleteBtnEl.addEventListener("click", deleteBtn);
 newNoteBtnEl.addEventListener("click", newNote);
+saveBtnEl.addEventListener("click", saveButton);
 
 function loadStoredNotes() {
   loadFromLocalStorage();
@@ -25,6 +27,53 @@ function sortNotes() {
   notes.sort((a, b) => {
     return b.lastUpdated - a.lastUpdated;
   });
+}
+
+function newNote() {
+  currentInputTitleEl.value = "";
+  currentInputContentEl.value = "";
+  currentLoadedID = "";
+
+  let previewNotesEl = document.querySelectorAll(".preview-note");
+  previewNotesEl.forEach((note) => {
+    note.classList.remove("note-selected");
+  });
+}
+
+function saveButton() {
+  if (!currentInputTitleEl.value || !currentInputContentEl.value) {
+    alert("Gib bitte eine Überschrift und eine Notiz ein");
+    return;
+  }
+  saveNote();
+  saveToLocalStorage();
+  loadStoredNotes();
+  loadNoteToEdit(currentLoadedID);
+}
+
+function deleteBtn() {
+  deleteNote();
+  saveToLocalStorage();
+  loadStoredNotes();
+  newNote();
+}
+
+function loadNoteToEdit(id) {
+  currentLoadedID = id;
+  let previewNotesEl = document.querySelectorAll(".preview-note");
+  previewNotesEl.forEach((note) => {
+    note.classList.remove("note-selected");
+  });
+
+  let changeClass = document.getElementById(id);
+  changeClass.classList.add("note-selected");
+
+  let loadNeededNote = notes.filter((array) => {
+    return array.id === currentLoadedID;
+  });
+
+  currentInputTitleEl.value = loadNeededNote[0].title;
+  currentInputContentEl.value = loadNeededNote[0].content;
 }
 
 function updateNotesList() {
